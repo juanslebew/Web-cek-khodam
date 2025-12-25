@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Khodam Online</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #2d2d2d;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 350px;
+        }
+        h1 { color: #f1c40f; }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        button:hover { background-color: #d35400; }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2ecc71;
+            min-height: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cek Khodam</h1>
+    <p>Masukkan nama kamu untuk melihat khodam yang mendampingi:</p>
+    
+    <input type="text" id="namaInput" placeholder="Ketik nama di sini..." autocomplete="off">
+    <button onclick="cekKhodam()">Cek Sekarang</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function cekKhodam() {
+        const nama = document.getElementById('namaInput').value.trim();
+        const resultDiv = document.getElementById('result');
+
+        if (nama === "") {
+            resultDiv.innerText = "Masukkan nama dulu, Bos!";
+            resultDiv.style.color = "#e74c3c";
+            return;
+        }
+
+        // --- DAFTAR KHODAM (Silakan Tambah/Ubah Sendiri) ---
+        const daftarKhodam = [
+            "Macan Putih Siliwangi",
+            "Kunti Bogel",
+            "Naga Sakti",
+            "Tuyul Gondrong",
+            "Eyang Sapu Jagat",
+            "Buaya Putih",
+            "Rawon Setan",
+            "Garuda Perkasa",
+            "Kontol kejepit", 
+            "Plontang", 
+            "Kunti ireng", 
+            "Kuple", 
+            "Jin Botol Kosong",
+            "Kucing Oren Garang"
+        ];
+
+        // Logika acak berdasarkan input nama agar hasilnya konsisten untuk nama yang sama
+        let hash = 0;
+        for (let i = 0; i < nama.length; i++) {
+            hash = nama.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const index = Math.abs(hash) % daftarKhodam.length;
+        const khodamTerpilih = daftarKhodam[index];
+
+        // Menampilkan hasil
+        resultDiv.style.color = "#2ecc71";
+        resultDiv.innerText = `Khodam ${nama} adalah: ${khodamTerpilih}`;
+    }
+</script>
+
+</body>
+</html>
